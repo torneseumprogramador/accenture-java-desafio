@@ -39,7 +39,7 @@ public class SwaggerConfig {
 		docket
 		.globalOperationParameters(params)
 		.select()
-		.apis(RequestHandlerSelectors.basePackage("gama.educa.resource"))
+		.apis(RequestHandlerSelectors.basePackage("com.gama.resource"))
 		.paths(PathSelectors.any())
 		.build()
 		.apiInfo(this.informacoesApi().build())
@@ -54,10 +54,10 @@ public class SwaggerConfig {
  
 		ApiInfoBuilder apiInfoBuilder = new ApiInfoBuilder();
  
-		apiInfoBuilder.title("Gama Educa - API");
-		apiInfoBuilder.description("API Plataforma Gama Pilar Educação");
+		apiInfoBuilder.title("Gama Educação - API");
+		apiInfoBuilder.description("API Accenture Desafio Turma 1 e 2");
 		apiInfoBuilder.version("1.0");
-		apiInfoBuilder.termsOfServiceUrl("Termo de uso: Uso Pila Educação");
+		apiInfoBuilder.termsOfServiceUrl("Termo de uso: Uso Gama Academy");
 		apiInfoBuilder.license("Licença - Gama Academy");
 		apiInfoBuilder.licenseUrl("https://gama.academy/");
 		apiInfoBuilder.contact(this.contato());
@@ -68,8 +68,8 @@ public class SwaggerConfig {
 	private Contact contato() {
  
 		return new Contact(
-				"Gleyson Sampaio",
+				"Gama Educação",
 				"https://gama.academy/", 
-				"gleyson.sampaio@gama.academy");
+				"educacao@gama.academy");
 	}
 }
