@@ -14,7 +14,7 @@ public class Conta {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(length = 200)
+	@Column(length = 20)
 	private String numero;
 	
 	@Column(precision = 9, scale = 2)
