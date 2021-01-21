@@ -6,4 +6,5 @@ import com.gama.model.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 	boolean existsByLogin(String login);
+	Usuario findByLogin(String login);
 }
