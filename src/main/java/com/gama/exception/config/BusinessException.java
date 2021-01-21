@@ -1,4 +1,6 @@
-package com.gama.exception;
+package com.gama.exception.config;
+
+import com.gama.exception.LoginExistenteException;
 
 public  class BusinessException extends RuntimeException {
 	public static String ERROR_ID = "400";

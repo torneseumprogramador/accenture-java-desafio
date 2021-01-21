@@ -1,4 +1,4 @@
-package com.gama.exception;
+package com.gama.exception.config;
 
 import java.time.LocalDateTime;
 

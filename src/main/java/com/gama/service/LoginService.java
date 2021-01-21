@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.gama.dto.Sessao;
-import com.gama.exception.BusinessException;
+import com.gama.exception.config.BusinessException;
 import com.gama.model.Conta;
 import com.gama.model.Usuario;
 import com.gama.repository.ContaRepository;
