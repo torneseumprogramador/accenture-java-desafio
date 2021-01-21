@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.gama.dto.Sessao;
-import com.gama.exception.BadRequestException;
+import com.gama.exception.BusinessException;
 import com.gama.model.Conta;
 import com.gama.model.Usuario;
 import com.gama.repository.ContaRepository;
@@ -34,19 +34,19 @@ public class LoginService {
 	public Sessao logar(String login, String senha) throws Exception {
 		
 		if (login == null || login.isEmpty() || senha.isEmpty()) {
-			throw new Exception("Login e senha são requeridos");
+			throw new BusinessException("Login e senha são requeridos");
 		}
 		
 		Usuario usuario = repository.findByLogin(login);
 		
 		if (usuario == null) {
-			throw new BadRequestException("Usuario nao localizado para o login: " + login);
+			throw new BusinessException("Usuario nao localizado para o login: " + login);
 		}
 		
 		boolean senhaOk = encoder.matches(senha, usuario.getSenha());
 		
 		if (!senhaOk) {
-			throw new BadRequestException("Senha inválida para o login: " + login);
+			throw new BusinessException("Senha inválida para o login: " + login);
 		}
 		
 		Conta conta = contaRepository.findByNumero(login);
@@ -65,7 +65,7 @@ public class LoginService {
 	}
 	
 	private String getJWTToken(Sessao sessao) {
-		String secretKey = "TRINEO_SECRET_KEY";
+		String secretKey = "GAMA_SECRET_KEY";
 		List<GrantedAuthority> grantedAuthorities = AuthorityUtils
 				.commaSeparatedStringToAuthorityList("ROLE_USER");
 		

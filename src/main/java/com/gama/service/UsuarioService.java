@@ -37,7 +37,7 @@ public class UsuarioService {
 	}
 	public void criarConta(Usuario usuario) throws LoginExistenteException{
 		if(repository.existsByLogin(usuario.getLogin()))
-			throw new LoginExistenteException("Já Existe uma conta com o Login " + usuario.getLogin() );
+			throw new LoginExistenteException(usuario.getLogin() );
 		
 		incluirUsuarioConta(usuario);
 		

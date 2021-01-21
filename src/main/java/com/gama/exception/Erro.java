@@ -1,14 +1,14 @@
 package com.gama.exception;
 
-public enum Erros {
-	LOGIN_EXISTENTE_001("001","Já existe um login cadastrado com o nome %s")
+public enum Erro {
+	LOGIN_EXISTENTE_001("001","Já existe um usuario cadastrado com o login %s")
 	
 	;
 	
 	private String codigo;
 	private String mensagem;
 	
-	private Erros(String codigo, String mensagem) {
+	private Erro(String codigo, String mensagem) {
 		this.codigo=codigo;
 		this.mensagem=mensagem;
 	}
