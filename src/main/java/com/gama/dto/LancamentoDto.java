@@ -5,17 +5,17 @@ import java.time.LocalDate;
 import com.gama.model.TipoLancamento;
 
 public class LancamentoDto {
-	private LocalDate data; 
+	public LocalDate data; 
 	
-	private Double valor;
+	public Double valor;
 	
-	private String contaOrigem;
+	public String contaOrigem;
 	
-	private String contaDestino;
+	public String contaDestino;
 	
-	private String descricao;
+	public String descricao;
 	
-	private Integer planoConta;
+	public Integer planoConta;
 	
-	private TipoLancamento tipo;
+	public TipoLancamento tipo;
 }

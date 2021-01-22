@@ -2,7 +2,10 @@ package com.gama.model;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,18 +18,26 @@ public class Lancamento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@Column(nullable = false)
 	private LocalDate data; 
 	
+	@Column(nullable = false, scale = 2, precision = 9)
 	private Double valor;
 	
+	@Column(nullable = false, length = 9)
 	private Integer contaOrigem;
 	
+	@Column(nullable = false, length = 9)
 	private Integer contaDestino;
 	
+	@Column(nullable = false,length = 100)
 	private String descricao;
 	
+	@Column(nullable = false, length = 9)
 	private Integer planoConta;
 	
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false,length = 1)
 	private TipoLancamento tipo;
 
 	public Integer getId() {
