@@ -25,10 +25,7 @@ public class Lancamento {
 	private Double valor;
 	
 	@Column(nullable = false, length = 9)
-	private Integer contaOrigem;
-	
-	@Column(length = 9)
-	private Integer contaDestino;
+	private Integer conta;
 	
 	@Column(nullable = false,length = 100)
 	private String descricao;
@@ -64,20 +61,11 @@ public class Lancamento {
 		this.valor = valor;
 	}
 
-	public Integer getContaOrigem() {
-		return contaOrigem;
+	public void setConta(Integer conta) {
+		this.conta = conta;
 	}
-
-	public void setContaOrigem(Integer contaOrigem) {
-		this.contaOrigem = contaOrigem;
-	}
-
-	public Integer getContaDestino() {
-		return contaDestino;
-	}
-
-	public void setContaDestino(Integer contaDestino) {
-		this.contaDestino = contaDestino;
+	public Integer getConta() {
+		return conta;
 	}
 
 	public String getDescricao() {
