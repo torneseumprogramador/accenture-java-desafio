@@ -38,7 +38,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
 	private final String HEADER = "Authorization";
 	private final String PREFIX = "Bearer ";
-	private final String SECRET = "TRINEO_SECRET_KEY";
+	
 	
 	static final ObjectMapper MAPPER = new ObjectMapper();
 	
@@ -77,7 +77,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
 	private Claims validateToken(HttpServletRequest request) {
 		String jwtToken = request.getHeader(HEADER).replace(PREFIX, "");
-		JwtParser parser = Jwts.parser().setSigningKey(SECRET.getBytes());
+		JwtParser parser = Jwts.parser().setSigningKey(JWTConstants.KEY.getBytes());
 		Jws<Claims> claimsJws;
 		try {
 			claimsJws = parser.parseClaimsJws(jwtToken);

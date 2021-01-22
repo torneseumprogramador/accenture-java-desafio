@@ -17,7 +17,7 @@ public class Conta {
 	@Column(length = 20,nullable = false)
 	private String numero;
 	
-	@Column(precision = 9, scale = 2,nullable = false)
+	@Column(precision = 2, scale = 9,nullable = false)
 	private Double saldo =  0.0;
 	public Integer getId() {
 		return id;

@@ -17,6 +17,6 @@ public class LancamentoResource {
 	
 	@PostMapping()
 	public void post(@RequestBody LancamentoDto body) throws Exception {
-		service.incluir(body);
+		service.confirmar(body);
 	}
 }

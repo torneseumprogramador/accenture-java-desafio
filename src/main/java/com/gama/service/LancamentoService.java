@@ -21,23 +21,37 @@ public class LancamentoService {
 	
 	
 	@Transactional
-	public void incluir(LancamentoDto dto) {
+	public void confirmar(LancamentoDto dto) {
 		TipoLancamento tipo = dto.tipo;
 		Double valor = dto.valor * tipo.getFator();
 		Lancamento entidade = new Lancamento();
 		entidade.setData(dto.data);
 		entidade.setDescricao(dto.descricao);
 		entidade.setPlanoConta(dto.planoConta);
-		entidade.setTipo(dto.tipo);
 		entidade.setValor(valor);
 		entidade.setTipo(tipo);
 		
-		Conta origem = contaRepository.findByNumero(dto.contaOrigem);
-		origem.setSaldo(origem.getSaldo() + valor);
+		Conta conta = contaRepository.findByNumero(dto.contaOrigem);
+		conta.setSaldo(conta.getSaldo() + valor);
+		entidade.setContaOrigem(conta.getId());
 		
-		
+		contaRepository.save(conta);
 		repository.save(entidade);
-		contaRepository.save(origem);
+		
+		if(tipo==TipoLancamento.T) {
+			entidade = new Lancamento();
+			entidade.setData(dto.data);
+			entidade.setDescricao("Receb.:" + dto.descricao);
+			entidade.setPlanoConta(dto.planoConta);
+			entidade.setTipo(TipoLancamento.R);
+			entidade.setValor(dto.valor);
+			conta = contaRepository.findByNumero(dto.contaDestino);
+			conta.setSaldo(conta.getSaldo() + dto.valor);
+			
+			contaRepository.save(conta);
+			repository.save(entidade);
+			
+		}
 	}
 	
 	

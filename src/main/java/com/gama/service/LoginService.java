@@ -16,6 +16,7 @@ import com.gama.model.Conta;
 import com.gama.model.Usuario;
 import com.gama.repository.ContaRepository;
 import com.gama.repository.UsuarioRepository;
+import com.gama.security.JWTConstants;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -65,7 +66,7 @@ public class LoginService {
 	}
 	
 	private String getJWTToken(Sessao sessao) {
-		String secretKey = "GAMA_SECRET_KEY";
+		
 		List<GrantedAuthority> grantedAuthorities = AuthorityUtils
 				.commaSeparatedStringToAuthorityList("ROLE_USER");
 		
@@ -79,7 +80,7 @@ public class LoginService {
 								.collect(Collectors.toList()))				
 				.setIssuedAt(sessao.getDataInicio())
 				.setExpiration(sessao.getDataFim())
-				.signWith(SignatureAlgorithm.HS512, secretKey.getBytes()).compact();
+				.signWith(SignatureAlgorithm.HS512, JWTConstants.KEY.getBytes()).compact();
 
 		return token;
 	}
