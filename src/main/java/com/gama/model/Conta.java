@@ -14,11 +14,11 @@ public class Conta {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(length = 20)
+	@Column(length = 20,nullable = false)
 	private String numero;
 	
-	@Column(precision = 9, scale = 2)
-	private Double saldo;
+	@Column(precision = 9, scale = 2,nullable = false)
+	private Double saldo =  0.0;
 	public Integer getId() {
 		return id;
 	}

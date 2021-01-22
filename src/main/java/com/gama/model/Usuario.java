@@ -14,16 +14,16 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(length = 20)
+	@Column(length = 20,nullable = false)
 	private String cpf;
 	
-	@Column(length = 100)
+	@Column(length = 100,nullable = false)
 	private String nome;
 	
-	@Column(length = 20)
+	@Column(length = 20 ,nullable = false)
 	private String login;
 	
-	@Column(length = 100)
+	@Column(length = 100,nullable = false)
 	private String senha;
 	
 	public Integer getId() {
