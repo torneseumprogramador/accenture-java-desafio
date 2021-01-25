@@ -26,6 +26,9 @@ public class Usuario {
 	@Column(length = 100,nullable = false)
 	private String senha;
 	
+	@Column(length = 100, name = "senha_temp")
+	private String senhaTemporaria;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -53,5 +56,14 @@ public class Usuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+	public String getSenhaTemporaria() {
+		return senhaTemporaria;
+	}
+	public void setSenhaTemporaria(String senhaTemporaria) {
+		this.senhaTemporaria = senhaTemporaria;
+	}
 	
+	public boolean isRedefinirSenha() {
+		return getSenhaTemporaria()!=null;
+	}
 }

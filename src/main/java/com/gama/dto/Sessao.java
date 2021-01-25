@@ -11,6 +11,7 @@ public class Sessao {
 	private String token;
 	private Date dataInicio;
 	private Date dataFim;
+	
 	public Usuario getUsuario() {
 		return usuario;
 	}

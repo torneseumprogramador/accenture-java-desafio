@@ -5,7 +5,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.gama.model.Usuario;
 import com.gama.service.UsuarioService;
 
 @SpringBootApplication

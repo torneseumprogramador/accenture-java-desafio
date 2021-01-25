@@ -19,4 +19,5 @@ public class UsuarioResource {
 	public void criarConta(@RequestBody Usuario usuario) throws Exception {
 		service.criarConta(usuario);
 	}
+	
 }

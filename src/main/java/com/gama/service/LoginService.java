@@ -1,5 +1,6 @@
 package com.gama.service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,6 +11,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.gama.dto.Login;
 import com.gama.dto.Sessao;
 import com.gama.exception.config.BusinessException;
 import com.gama.model.Conta;
@@ -32,25 +34,63 @@ public class LoginService {
 	@Autowired
 	private PasswordEncoder encoder;
 	
-	public Sessao logar(String login, String senha) throws Exception {
+	public void alterarSenha(Login login,String senhaTemporaria) throws Exception {
+		Usuario usuario = repository.findByLogin(login.getUsuario());
 		
-		if (login == null || login.isEmpty() || senha.isEmpty()) {
-			throw new BusinessException("Login e senha são requeridos");
+		if (usuario == null) {
+			throw new BusinessException("Usuario nao localizado para o login: " + login.getUsuario());
 		}
 		
+		if (!usuario.getSenhaTemporaria().equals(senhaTemporaria)) {
+			throw new BusinessException("Senha temporaria inválida");
+		}
+		
+		usuario.setSenhaTemporaria(null);
+		
+		String senhaCriptografada = encoder.encode(login.getSenha());
+		usuario.setSenha(senhaCriptografada);
+		
+		repository.save(usuario);
+		
+	}
+	
+	public void solicitarNovaSenha(String login, String email) throws Exception {
 		Usuario usuario = repository.findByLogin(login);
 		
 		if (usuario == null) {
 			throw new BusinessException("Usuario nao localizado para o login: " + login);
 		}
 		
-		boolean senhaOk = encoder.matches(senha, usuario.getSenha());
+		SimpleDateFormat sdf = new SimpleDateFormat("HHmmss");
+		String senhaTemporaria = sdf.format(new Date());
+		usuario.setSenhaTemporaria(senhaTemporaria);
+		usuario.setSenha(senhaTemporaria);
+		repository.save(usuario);
+		
+	}
+	public Sessao logar(Login login) throws Exception {
+		
+		if (login == null || login.getUsuario().isEmpty() || login.getSenha().isEmpty()) {
+			throw new BusinessException("Login e senha são requeridos");
+		}
+		
+		Usuario usuario = repository.findByLogin(login.getUsuario());
+		
+		if (usuario == null) {
+			throw new BusinessException("Usuario nao localizado para o login: " + login.getUsuario());
+		}
+		
+		if (usuario.isRedefinirSenha()) {
+			throw new BusinessException("Usuario precisa redefinir a senha: " + login.getUsuario());
+		}
+		
+		boolean senhaOk = encoder.matches(login.getSenha(), usuario.getSenha());
 		
 		if (!senhaOk) {
 			throw new BusinessException("Senha inválida para o login: " + login);
 		}
 		
-		Conta conta = contaRepository.findByNumero(login);
+		Conta conta = contaRepository.findByNumero(login.getUsuario());
 		
 		// tempo do token = 1 horas
 		long tempoToken = 1 * 60 * 60 * 1000;
