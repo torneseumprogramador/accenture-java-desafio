@@ -2,7 +2,7 @@ package com.gama.dto;
 
 import java.time.LocalDate;
 
-import com.gama.model.TipoLancamento;
+import com.gama.model.TipoMovimento;
 
 public class LancamentoDto {
 	public LocalDate data; 
@@ -17,5 +17,5 @@ public class LancamentoDto {
 	
 	public Integer planoConta;
 	
-	public TipoLancamento tipo;
+	public TipoMovimento tipo;
 }

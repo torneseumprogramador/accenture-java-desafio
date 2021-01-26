@@ -35,7 +35,7 @@ public class Lancamento {
 	
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false,length = 1)
-	private TipoLancamento tipo;
+	private TipoMovimento tipo;
 
 	public Integer getId() {
 		return id;
@@ -84,11 +84,11 @@ public class Lancamento {
 		this.planoConta = planoConta;
 	}
 
-	public TipoLancamento getTipo() {
+	public TipoMovimento getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(TipoLancamento tipo) {
+	public void setTipo(TipoMovimento tipo) {
 		this.tipo = tipo;
 	}
 	

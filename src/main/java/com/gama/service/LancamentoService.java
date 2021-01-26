@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gama.dto.LancamentoDto;
 import com.gama.model.Conta;
 import com.gama.model.Lancamento;
-import com.gama.model.TipoLancamento;
+import com.gama.model.TipoMovimento;
 import com.gama.repository.ContaRepository;
 import com.gama.repository.LancamentoRepository;
 
@@ -22,16 +22,16 @@ public class LancamentoService {
 	
 	@Transactional
 	public void confirmar(LancamentoDto dto) {
-		TipoLancamento tipo = dto.tipo;
+		TipoMovimento tipo = dto.tipo;
 		Lancamento entidade =null;
 		Conta conta =null;
 		String descricao = dto.descricao;
-		if(tipo==TipoLancamento.T) {
+		if(tipo==TipoMovimento.T) {
 			entidade = new Lancamento();
 			entidade.setData(dto.data);
 			entidade.setDescricao("Receb.: " + dto.contaOrigem +" - " + descricao);
 			entidade.setPlanoConta(dto.planoConta);
-			entidade.setTipo(TipoLancamento.R);
+			entidade.setTipo(TipoMovimento.R);
 			entidade.setValor(dto.valor);
 			
 			conta = contaRepository.findByNumero(dto.contaDestino);

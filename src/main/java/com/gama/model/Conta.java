@@ -2,6 +2,8 @@ package com.gama.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,6 +21,17 @@ public class Conta {
 	
 	@Column(precision = 2, scale = 9,nullable = false)
 	private Double saldo =  0.0;
+	
+	@Enumerated(EnumType.STRING)
+	private ContaTipo tipo;
+	
+	public ContaTipo getTipo() {
+		return tipo;
+	}
+	
+	public void setTipo(ContaTipo tipo) {
+		this.tipo = tipo;
+	}
 	public Integer getId() {
 		return id;
 	}
