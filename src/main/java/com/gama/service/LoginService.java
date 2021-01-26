@@ -15,8 +15,10 @@ import com.gama.dto.Login;
 import com.gama.dto.Sessao;
 import com.gama.exception.config.BusinessException;
 import com.gama.model.Conta;
+import com.gama.model.ContaTipo;
 import com.gama.model.Usuario;
 import com.gama.repository.ContaRepository;
+import com.gama.repository.PlanoContaRepository;
 import com.gama.repository.UsuarioRepository;
 import com.gama.security.JWTConstants;
 
@@ -30,6 +32,9 @@ public class LoginService {
 	
 	@Autowired
 	private ContaRepository contaRepository;
+	
+	@Autowired
+	private PlanoContaRepository planoContaRepository;
 	
 	@Autowired
 	private PasswordEncoder encoder;
@@ -90,7 +95,6 @@ public class LoginService {
 			throw new BusinessException("Senha inválida para o login: " + login);
 		}
 		
-		Conta conta = contaRepository.findByNumero(login.getUsuario());
 		
 		// tempo do token = 1 horas
 		long tempoToken = 1 * 60 * 60 * 1000;
@@ -99,8 +103,15 @@ public class LoginService {
 		sessao.setDataFim(new Date(System.currentTimeMillis() + tempoToken));
 		
 		sessao.setUsuario(usuario);
-		sessao.setConta(conta);
+		
 		sessao.setToken(getJWTToken(sessao));
+		Conta conta = contaRepository.findByTipoAndNumero(ContaTipo.D, login.getUsuario());
+		sessao.setConta(conta);
+		
+		conta = contaRepository.findByTipoAndNumero(ContaTipo.C, login.getUsuario());
+		sessao.setContaCredito(conta);
+		
+		//sessao.setPlanosConta(planoContaRepository.findByLogin(login.getUsuario()));
 		
 		return sessao;
 	}

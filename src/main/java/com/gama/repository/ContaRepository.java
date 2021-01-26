@@ -3,8 +3,9 @@ package com.gama.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.gama.model.Conta;
+import com.gama.model.ContaTipo;
 
 public interface ContaRepository extends JpaRepository<Conta, Integer> {
-	Conta findByNumero(String numero);
+	Conta findByTipoAndNumero(ContaTipo tipo, String numero);
 	
 }

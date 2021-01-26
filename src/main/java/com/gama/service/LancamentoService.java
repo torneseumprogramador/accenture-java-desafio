@@ -11,9 +11,11 @@ import com.gama.exception.config.BusinessException;
 import com.gama.model.Conta;
 import com.gama.model.ContaTipo;
 import com.gama.model.Lancamento;
+import com.gama.model.PlanoConta;
 import com.gama.model.TipoMovimento;
 import com.gama.repository.ContaRepository;
 import com.gama.repository.LancamentoRepository;
+import com.gama.repository.PlanoContaRepository;
 
 @Service
 public class LancamentoService {
@@ -23,18 +25,22 @@ public class LancamentoService {
 	@Autowired
 	private LancamentoRepository repository;
 	
+	@Autowired
+	private PlanoContaRepository planoContaRepository;
 	
 	@Transactional
 	public void confirmar(LancamentoDto dto) {
-		TipoMovimento tipo = dto.tipo;
+		Optional<PlanoConta> opc = planoContaRepository.findById(dto.planoConta);
+		PlanoConta pc = opc.get();
+		TipoMovimento tipo = pc.getTipoMovimento();
 		Lancamento entidade =null;
 		Conta conta =null;
 		String descricao = dto.descricao;
 		if(tipo==TipoMovimento.T) {
 
-			conta = contaRepository.findByNumero(dto.contaDestino);
-			if(conta.getTipo()==ContaTipo.C)
-				throw new BusinessException("Só é possível realizar entre contas do tipo débito ");
+			conta = contaRepository.findByTipoAndNumero(ContaTipo.D, dto.contaDestino);
+			if(conta==null)
+				throw new BusinessException("Não existe Conta Débito com este número " + dto.contaDestino);
 			
 			entidade = new Lancamento();
 			entidade.setData(dto.data);

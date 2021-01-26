@@ -16,7 +16,7 @@ public class LancamentoDto {
 	@ApiModelProperty(value = "ID da Conta", example = "1")
 	public Integer conta;
 	
-	@ApiModelProperty(value = "Data do Lançamento", example = "2020-01-01")
+	@ApiModelProperty(value = "Data do Lançamento", example = "cpfDestino")
 	public String contaDestino;
 	
 	@ApiModelProperty(value = "Descrição do Lançamento", example = "PAGAMENTO CONTA LUZ")
@@ -25,6 +25,4 @@ public class LancamentoDto {
 	@ApiModelProperty(value = "ID do Plano de Contas pertinente com a finalidade do lançamento ", example = "1")
 	public Integer planoConta;
 	
-	@ApiModelProperty(value = "Tipo do Movimento", allowableValues = "R, D, T", example = "R")
-	public TipoMovimento tipo;
 }

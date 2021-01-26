@@ -19,9 +19,19 @@ public class PlanoConta {
 	@Column(length = 50)
 	private String descricao;
 	
+	@Column(length = 20)
+	private String login;
+	
 	@Enumerated(EnumType.STRING)
 	private TipoMovimento tipoMovimento;
 
+	public String getLogin() {
+		return login;
+	}
+	public void setLogin(String login) {
+		this.login = login;
+	}
+	
 	public Integer getId() {
 		return id;
 	}

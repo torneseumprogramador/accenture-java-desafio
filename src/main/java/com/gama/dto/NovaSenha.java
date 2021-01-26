@@ -3,10 +3,10 @@ package com.gama.dto;
 import io.swagger.annotations.ApiModelProperty;
 
 public class NovaSenha {
-	@ApiModelProperty(value = "Login (Usuario) no sistema (cpf, telefone, apelido)", example = "11954360987")
+	@ApiModelProperty(value = "Login (Usuario) no sistema (cpf, telefone, apelido)", example = "masteruser")
 	private String login;
 	
-	@ApiModelProperty(value = "E-mail que receberá", example = "11954360987")
+	@ApiModelProperty(value = "E-mail que receberá", example = "email@dominio.com")
 	private String email;
 	
 	public String getLogin() {

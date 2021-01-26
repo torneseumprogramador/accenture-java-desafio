@@ -8,8 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gama.exception.LoginExistenteException;
 import com.gama.model.Conta;
 import com.gama.model.ContaTipo;
+import com.gama.model.PlanoConta;
+import com.gama.model.TipoMovimento;
 import com.gama.model.Usuario;
 import com.gama.repository.ContaRepository;
+import com.gama.repository.PlanoContaRepository;
 import com.gama.repository.UsuarioRepository;
 
 @Service
@@ -19,6 +22,9 @@ public class UsuarioService {
 	
 	@Autowired
 	private ContaRepository contaRepository;
+	
+	@Autowired
+	private PlanoContaRepository planoContaRepository;
 	
 	@Autowired
 	private PasswordEncoder encoder;
@@ -62,6 +68,19 @@ public class UsuarioService {
 		
 		repository.save(usuario);
 		
+		PlanoConta pc = new PlanoConta();
+		pc.setDescricao("RECEITAS");
+		pc.setTipoMovimento(TipoMovimento.R);
+		pc.setLogin(usuario.getLogin());
+		
+		planoContaRepository.save(pc);
+		
+		pc = new PlanoConta();
+		pc.setDescricao("DESPESAS");
+		pc.setTipoMovimento(TipoMovimento.D);
+		pc.setLogin(usuario.getLogin());
+		
+		planoContaRepository.save(pc);
 		
 	}
 }

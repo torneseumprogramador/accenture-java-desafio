@@ -8,10 +8,17 @@ import com.gama.model.Usuario;
 public class Sessao {
 	private Usuario usuario;
 	private Conta conta;
+	private Conta contaCredito;
 	private String token;
 	private Date dataInicio;
 	private Date dataFim;
 	
+	public void setContaCredito(Conta contaCredito) {
+		this.contaCredito = contaCredito;
+	}
+	public Conta getContaCredito() {
+		return contaCredito;
+	}
 	public Usuario getUsuario() {
 		return usuario;
 	}
