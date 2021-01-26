@@ -1,8 +1,14 @@
 package com.gama.dto;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class Login {
+	@ApiModelProperty(value = "Login (Usuario) no sistema (cpf, telefone, apelido)", example = "11954360987")
 	private String usuario;
+	
+	@ApiModelProperty(value = "Senha do usuario", example = "senh@Fort#")
 	private String senha;
+	
 	public String getUsuario() {
 		return usuario;
 	}

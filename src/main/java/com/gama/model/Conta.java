@@ -12,7 +12,7 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "tab_conta",uniqueConstraints=
-	@UniqueConstraint( columnNames = {"numero", "tipo"})
+	@UniqueConstraint(name="uk_numero_tipo", columnNames = {"numero", "tipo"})
 )
 public class Conta {
 	@Id
