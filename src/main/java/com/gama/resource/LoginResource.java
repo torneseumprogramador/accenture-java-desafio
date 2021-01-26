@@ -29,7 +29,7 @@ public class LoginResource {
 	}
 	
 	@PostMapping("/nova-senha")
-	public void solicitarNovaSenha(@RequestBody NovaSenha novaSenha) throws Exception {
-		service.solicitarNovaSenha(novaSenha.getLogin(), novaSenha.getEmail());
+	public String solicitarNovaSenha(@RequestBody NovaSenha novaSenha) throws Exception {
+		return service.solicitarNovaSenha(novaSenha.getLogin(), novaSenha.getEmail());
 	}
 }

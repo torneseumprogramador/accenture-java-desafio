@@ -59,7 +59,7 @@ public class LoginService {
 		
 	}
 	
-	public void solicitarNovaSenha(String login, String email) throws Exception {
+	public String solicitarNovaSenha(String login, String email) throws Exception {
 		Usuario usuario = repository.findByLogin(login);
 		
 		if (usuario == null) {
@@ -72,6 +72,7 @@ public class LoginService {
 		usuario.setSenha(senhaTemporaria);
 		repository.save(usuario);
 		
+		return senhaTemporaria;
 	}
 	public Sessao logar(Login login) throws Exception {
 		
@@ -92,7 +93,7 @@ public class LoginService {
 		boolean senhaOk = encoder.matches(login.getSenha(), usuario.getSenha());
 		
 		if (!senhaOk) {
-			throw new BusinessException("Senha inválida para o login: " + login);
+			throw new BusinessException("Senha inválida para o login: " + login.getUsuario());
 		}
 		
 		
@@ -104,7 +105,7 @@ public class LoginService {
 		
 		sessao.setUsuario(usuario);
 		
-		sessao.setToken(getJWTToken(sessao));
+		sessao.setToken(JWTConstants.PREFIX + getJWTToken(sessao));
 		Conta conta = contaRepository.findByTipoAndNumero(ContaTipo.D, login.getUsuario());
 		sessao.setConta(conta);
 		
