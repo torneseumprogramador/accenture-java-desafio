@@ -10,6 +10,6 @@ import org.springframework.data.repository.query.Param;
 import com.gama.model.Lancamento;
 
 public interface LancamentoRepository extends JpaRepository<Lancamento, Integer> {
-	 @Query("SELECT e FROM Lancamento l where e.conta = :idConta and e.data between :inicio and :fim")
+	 @Query("SELECT e FROM Lancamento e where e.conta = :idConta and e.data between :inicio and :fim")
     public List<Lancamento> listarLancamentos(@Param("idConta") Integer idConta, @Param("inicio") LocalDate inicio, @Param("fim") LocalDate fim);
 }

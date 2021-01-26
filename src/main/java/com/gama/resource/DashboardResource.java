@@ -1,43 +1,30 @@
 package com.gama.resource;
 
-import java.util.List;
+import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gama.dto.LancamentoDto;
-import com.gama.model.PlanoConta;
-import com.gama.repository.PlanoContaRepository;
-import com.gama.service.LancamentoService;
+import com.gama.dto.Dashboard;
+import com.gama.service.DashboardService;
+
+import io.swagger.annotations.ApiParam;
 
 @RestController
-@RequestMapping("/lancamentos")
+@RequestMapping("/dashboard")
 public class DashboardResource {
 	@Autowired
-	private LancamentoService service;
-	
-	@Autowired
-	private PlanoContaRepository planoContaRepositoy;
-	
-	
-	@PostMapping()
-	public void post(@RequestBody LancamentoDto body) throws Exception {
-		service.confirmar(body);
-	}
-	
-	@PostMapping("/planos-conta")
-	public void post(@RequestBody PlanoConta body) throws Exception {
-		planoContaRepositoy.save(body);
-	}
-	
-
-	@GetMapping("/planos-conta")
-	public List<PlanoConta> getPlanosConta(@RequestParam("login") String login) throws Exception {
-		return planoContaRepositoy.findByLogin(login);
+	private DashboardService service;
+	//https://github.com/swagger-api/swagger-core/wiki/Annotations
+	@GetMapping("")
+	public Dashboard dashboard(
+			@ApiParam(value = "login", example = "master", required = true) @RequestParam("login") String login, 
+			@ApiParam(value = "Data Inicio", example = "2020-01-01", required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam("inicio") LocalDate inicio, 
+			@ApiParam(value = "Data Fim", example = "2020-01-01", required = true)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam("fim") LocalDate fim ) throws Exception {
+		return service.atualizarDashboard(login, inicio, fim);
 	}
 }

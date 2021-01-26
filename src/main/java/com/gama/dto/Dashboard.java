@@ -5,7 +5,7 @@ import java.util.List;
 import com.gama.model.Conta;
 import com.gama.model.Lancamento;
 
-public class DashBoard {
+public class Dashboard {
 	private Conta contaDebito;
 	private Conta contaCredito;
 	private List<Lancamento> contaDebitoLancamentos;
