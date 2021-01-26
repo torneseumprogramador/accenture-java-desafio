@@ -9,7 +9,7 @@ public class LancamentoDto {
 	
 	public Double valor;
 	
-	public String contaOrigem;
+	public Integer conta;
 	
 	public String contaDestino;
 	

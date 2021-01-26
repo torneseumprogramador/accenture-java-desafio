@@ -6,4 +6,5 @@ import com.gama.model.Conta;
 
 public interface ContaRepository extends JpaRepository<Conta, Integer> {
 	Conta findByNumero(String numero);
+	
 }

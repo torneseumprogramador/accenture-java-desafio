@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gama.exception.LoginExistenteException;
 import com.gama.model.Conta;
+import com.gama.model.ContaTipo;
 import com.gama.model.Usuario;
 import com.gama.repository.ContaRepository;
 import com.gama.repository.UsuarioRepository;
@@ -26,8 +27,8 @@ public class UsuarioService {
 		 Usuario usuario = new Usuario();
          usuario.setCpf("00000000000");
          usuario.setNome("CONTA MASTER");
-         usuario.setLogin("MASTER");
-         usuario.setSenha("MASTER");
+         usuario.setLogin("master");
+         usuario.setSenha("master");
          
          try {
 			criarConta(usuario);
@@ -50,9 +51,17 @@ public class UsuarioService {
 		Conta conta = new Conta();
 		conta.setNumero(usuario.getLogin());
 		conta.setSaldo(0.0d);
+		conta.setTipo(ContaTipo.D);
+		contaRepository.save(conta);
+		
+		conta = new Conta();
+		conta.setNumero(usuario.getLogin());
+		conta.setSaldo(0.0d);
+		conta.setTipo(ContaTipo.C);
+		contaRepository.save(conta);
 		
 		repository.save(usuario);
-		contaRepository.save(conta);
+		
 		
 	}
 }

@@ -8,9 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "tab_conta")
+@Table(name = "tab_conta",uniqueConstraints=
+	@UniqueConstraint( columnNames = {"numero", "tipo"})
+)
 public class Conta {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

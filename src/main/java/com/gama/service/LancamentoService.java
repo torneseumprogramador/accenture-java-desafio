@@ -1,11 +1,15 @@
 package com.gama.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gama.dto.LancamentoDto;
+import com.gama.exception.config.BusinessException;
 import com.gama.model.Conta;
+import com.gama.model.ContaTipo;
 import com.gama.model.Lancamento;
 import com.gama.model.TipoMovimento;
 import com.gama.repository.ContaRepository;
@@ -27,14 +31,17 @@ public class LancamentoService {
 		Conta conta =null;
 		String descricao = dto.descricao;
 		if(tipo==TipoMovimento.T) {
+
+			conta = contaRepository.findByNumero(dto.contaDestino);
+			if(conta.getTipo()==ContaTipo.C)
+				throw new BusinessException("Só é possível realizar entre contas do tipo débito ");
+			
 			entidade = new Lancamento();
 			entidade.setData(dto.data);
-			entidade.setDescricao("Receb.: " + dto.contaOrigem +" - " + descricao);
+			entidade.setDescricao("Receb.: " + descricao);
 			entidade.setPlanoConta(dto.planoConta);
 			entidade.setTipo(TipoMovimento.R);
 			entidade.setValor(dto.valor);
-			
-			conta = contaRepository.findByNumero(dto.contaDestino);
 			conta.setSaldo(conta.getSaldo() + dto.valor);
 			entidade.setConta(conta.getId());
 			
@@ -53,7 +60,12 @@ public class LancamentoService {
 		entidade.setValor(valor);
 		entidade.setTipo(tipo);
 		
-		conta = contaRepository.findByNumero(dto.contaOrigem);
+		Optional<Conta> contaOp = contaRepository.findById(dto.conta);
+		if(contaOp.isPresent())
+			conta=contaOp.get();
+		else
+			throw new BusinessException("Não foi localizada uma conta com ID " + dto.conta);
+		
 		conta.setSaldo(conta.getSaldo() + valor);
 		entidade.setConta(conta.getId());
 		
