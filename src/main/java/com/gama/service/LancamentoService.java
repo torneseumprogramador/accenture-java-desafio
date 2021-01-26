@@ -45,7 +45,7 @@ public class LancamentoService {
 			entidade = new Lancamento();
 			entidade.setData(dto.data);
 			entidade.setDescricao("Receb.: " + descricao);
-			entidade.setPlanoConta(dto.planoConta);
+			entidade.setPlanoConta(pc);
 			entidade.setTipo(TipoMovimento.R);
 			entidade.setValor(dto.valor);
 			conta.setSaldo(conta.getSaldo() + dto.valor);
@@ -62,7 +62,7 @@ public class LancamentoService {
 		entidade = new Lancamento();
 		entidade.setData(dto.data);
 		entidade.setDescricao(descricao);
-		entidade.setPlanoConta(dto.planoConta);
+		entidade.setPlanoConta(pc);
 		entidade.setValor(valor);
 		entidade.setTipo(tipo);
 		

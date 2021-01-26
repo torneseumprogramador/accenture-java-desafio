@@ -9,6 +9,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -30,8 +32,10 @@ public class Lancamento {
 	@Column(nullable = false,length = 100)
 	private String descricao;
 	
-	@Column(nullable = false, length = 9)
-	private Integer planoConta;
+	@ManyToOne
+	@JoinColumn(name = "plano_conta")
+	//@Column(nullable = false, length = 9)
+	private PlanoConta planoConta;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false,length = 1)
@@ -76,11 +80,10 @@ public class Lancamento {
 		this.descricao = descricao;
 	}
 
-	public Integer getPlanoConta() {
+	public PlanoConta getPlanoConta() {
 		return planoConta;
 	}
-
-	public void setPlanoConta(Integer planoConta) {
+	public void setPlanoConta(PlanoConta planoConta) {
 		this.planoConta = planoConta;
 	}
 
