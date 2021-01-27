@@ -41,6 +41,21 @@ public class Lancamento {
 	@Column(nullable = false,length = 1)
 	private TipoMovimento tipo;
 
+	public Lancamento() {
+		
+	}
+	
+	public Lancamento(Integer conta, LocalDate data, String descricao, Double valor, PlanoConta planoConta,
+			TipoMovimento tipo) {
+		super();
+		this.conta = conta;
+		this.data = data;
+		this.descricao = descricao;
+		this.valor = valor;
+		this.planoConta = planoConta;
+		this.tipo = tipo;
+	}
+
 	public Integer getId() {
 		return id;
 	}
