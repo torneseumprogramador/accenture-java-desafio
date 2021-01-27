@@ -1,11 +1,8 @@
 package com.gama.config;
 
-import java.time.LocalDate;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.gama.dto.LancamentoDto;
 import com.gama.model.Conta;
 import com.gama.model.ContaTipo;
 import com.gama.repository.ContaRepository;
@@ -27,7 +24,7 @@ public class StartConfig {
 		service.criarContaPadrao("user1");
 		service.criarContaPadrao("user2");
 		
-		gerarLancamentosExemplo();
+		//gerarLancamentosExemplo();
 	}
 	private void gerarLancamentosExemplo() {
 		//receitas

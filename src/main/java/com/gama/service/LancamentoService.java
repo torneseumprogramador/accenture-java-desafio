@@ -42,7 +42,7 @@ public class LancamentoService {
 			if(conta.getTipo()==ContaTipo.CC)
 				throw new BusinessException("Conta {CREDITO} NÃO pode transferir para conta {BANCO}");
 			
-			conta = obterContaBanco(dto.login);
+			conta = obterContaCredito(dto.login);
 			lancamento = criarLancamento(conta.getId(), dto.data, dto.descricao, dto.valor * -1, pc);
 			inserirLancamento(lancamento);
 			
@@ -70,9 +70,16 @@ public class LancamentoService {
 		return opc.get();
 	}
 	private Conta obterContaBanco(String login) {
-		Conta conta = contaRepository.findByTipoAndNumero(ContaTipo.CB, login);
+		return obterConta(ContaTipo.CB,login);
+	}
+	
+	private Conta obterContaCredito(String login) {
+		return obterConta(ContaTipo.CC,login);
+	}
+	private Conta obterConta(ContaTipo tipo,String login) {
+		Conta conta = contaRepository.findByTipoAndNumero(tipo, login);
 		if(conta==null)
-			throw new BusinessException("Não existe Conta Banco com o Login" + login);
+			throw new BusinessException("Não existe Conta com o Login" + login);
 		
 		return conta;
 	}

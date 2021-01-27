@@ -54,48 +54,35 @@ public class UsuarioService {
 	@Transactional
 	private void incluirUsuarioConta(Usuario usuario) {
 		String senhaCriptografada = encoder.encode(usuario.getSenha());
+		String login=usuario.getLogin();
 		usuario.setSenha(senhaCriptografada);
 		
 		Conta conta = new Conta();
-		conta.setNumero(usuario.getLogin());
+		conta.setNumero(login);
 		conta.setSaldo(0.0d);
 		conta.setTipo(ContaTipo.CB);
 		contaRepository.save(conta);
 		
 		conta = new Conta();
-		conta.setNumero(usuario.getLogin());
+		conta.setNumero(login);
 		conta.setSaldo(0.0d);
 		conta.setTipo(ContaTipo.CC);
 		contaRepository.save(conta);
 		
 		repository.save(usuario);
 		
-		PlanoConta pc = new PlanoConta();
-		pc.setDescricao("RECEITAS");
-		pc.setTipoMovimento(TipoMovimento.R);
-		pc.setLogin(usuario.getLogin());
-		
+		PlanoConta pc = new PlanoConta(login,"RECEITAS",TipoMovimento.R);
 		planoContaRepository.save(pc);
 		
-		pc = new PlanoConta();
-		pc.setDescricao("DESPESAS");
-		pc.setTipoMovimento(TipoMovimento.D);
-		pc.setLogin(usuario.getLogin());
-		
+		pc = new PlanoConta(login,"DEPESAS",TipoMovimento.D);
 		planoContaRepository.save(pc);
 		
-		//if(usuario.getLogin().equals("user1")) {
-			pc = new PlanoConta();
-			pc.setLogin("master");
-			pc.setDescricao(PlanoConta.TRF_ENTRE_CONTAS);
-			pc.setTipoMovimento(TipoMovimento.TC);
-			planoContaRepository.save(pc);
-			
-			pc = new PlanoConta();
-			pc.setLogin("master");
-			pc.setDescricao(PlanoConta.TRF_ENTRE_USUARIOS);
-			pc.setTipoMovimento(TipoMovimento.TU);
-			planoContaRepository.save(pc);
-		//}
+		pc = new PlanoConta(login,PlanoConta.TRF_ENTRE_CONTAS,TipoMovimento.TC);
+		planoContaRepository.save(pc);
+		
+		pc = new PlanoConta(login,PlanoConta.TRF_ENTRE_USUARIOS,TipoMovimento.TU);
+		planoContaRepository.save(pc);
+		
+		
 	}
 }

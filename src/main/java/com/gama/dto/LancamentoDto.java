@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import io.swagger.annotations.ApiModelProperty;
 
 public class LancamentoDto {
-	@ApiModelProperty(value = "ID da Conta", example = "1")
+	@ApiModelProperty(value = "ID da Conta", example = "user1")
 	public String login;
 	
 	@ApiModelProperty(value = "Data do Lançamento", example = "2021-01-01")
@@ -17,7 +17,7 @@ public class LancamentoDto {
 	@ApiModelProperty(value = "ID da Conta", example = "1")
 	public Integer conta;
 	
-	@ApiModelProperty(value = "Conta de destino", example = "andre", allowableValues = "cpfDestino, telefoneDestino, apelidoDestino ")
+	@ApiModelProperty(value = "Conta de destino", example = "user2", allowableValues = "cpfDestino, telefoneDestino, apelidoDestino ")
 	public String contaDestino;
 	
 	@ApiModelProperty(value = "Descrição do Lançamento", example = "PAGAMENTO CONTA LUZ")

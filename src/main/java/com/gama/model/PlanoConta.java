@@ -28,6 +28,28 @@ public class PlanoConta {
 	
 	@Enumerated(EnumType.STRING)
 	private TipoMovimento tipoMovimento;
+	
+	@Column(name = "fl_padrao", length = 1)
+	private boolean padrao;
+	
+	public PlanoConta() {
+		
+	}
+	
+	public PlanoConta(String login, String descricao, TipoMovimento tipoMovimento) {
+		super();
+		this.login = login;
+		this.descricao = descricao;
+		this.tipoMovimento = tipoMovimento;
+		this.padrao = true;
+	}
+
+	public void setPadrao(boolean padrao) {
+		this.padrao = padrao;
+	}
+	public boolean isPadrao() {
+		return padrao;
+	}
 
 	public String getLogin() {
 		return login;
