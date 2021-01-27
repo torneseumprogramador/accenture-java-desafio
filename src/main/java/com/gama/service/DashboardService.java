@@ -34,8 +34,11 @@ public class DashboardService {
 		
 		ContaDto credito = new ContaDto();
 		credito.setSaldo(contaCredito.getSaldo());
-		credito.setLancamentos(lancamentoRepository.listarLancamentos(contaBanco.getId(), inicio, fim));
+		credito.setLancamentos(lancamentoRepository.listarLancamentos(contaCredito.getId(), inicio, fim));
 		
+		
+		dash.setContaBanco(banco);
+		dash.setContaCredito(credito);
 		return dash;
 	}
 }
