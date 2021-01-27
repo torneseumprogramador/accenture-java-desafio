@@ -23,8 +23,8 @@ public class DashboardResource {
 	@GetMapping("")
 	public Dashboard dashboard(
 			@ApiParam(value = "login", example = "master", required = true) @RequestParam("login") String login, 
-			@ApiParam(value = "Data Inicio", example = "2020-01-01", required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam("inicio") LocalDate inicio, 
-			@ApiParam(value = "Data Fim", example = "2020-01-01", required = true)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam("fim") LocalDate fim ) throws Exception {
+			@ApiParam(value = "Data Inicio", example = "2021-01-01", required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam("inicio") LocalDate inicio, 
+			@ApiParam(value = "Data Fim", example = "2021-01-31", required = true)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam("fim") LocalDate fim ) throws Exception {
 		return service.atualizarDashboard(login, inicio, fim);
 	}
 }
