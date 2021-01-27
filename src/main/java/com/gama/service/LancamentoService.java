@@ -57,15 +57,15 @@ public class LancamentoService {
 	}
 	private PlanoConta obterPlanoConta(Integer planoConta) {
 		Optional<PlanoConta> opc = planoContaRepository.findById(planoConta);
-		if(opc.isEmpty())
-			throw new BusinessException("Não existe Plano de Contas com o ID.: " + planoConta);
+		//if(opc.isEmpty())
+			//throw new BusinessException("Não existe Plano de Contas com o ID.: " + planoConta);
 		
 		return opc.get();
 	}
 	private Conta obterConta(Integer conta) {
 		Optional<Conta> opc = contaRepository.findById(conta);
-		if(opc.isEmpty())
-			throw new BusinessException("Não existe Conta com o ID.:" + conta);
+		//if(opc.isEmpty())
+			//throw new BusinessException("Não existe Conta com o ID.:" + conta);
 		
 		return opc.get();
 	}
