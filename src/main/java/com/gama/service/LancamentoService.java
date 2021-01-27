@@ -29,18 +29,32 @@ public class LancamentoService {
 	private PlanoContaRepository planoContaRepository;
 	
 	@Transactional
+	private void confirmarLancamento(Lancamento lancamento, Lancamento destino) {
+		
+	}
+	
+	@Transactional
 	public void confirmar(LancamentoDto dto) {
 		Optional<PlanoConta> opc = planoContaRepository.findById(dto.planoConta);
+		if(opc.isEmpty())
+			throw new BusinessException("Não existe Plano de Contas " + dto.planoConta);
+		
 		PlanoConta pc = opc.get();
 		TipoMovimento tipo = pc.getTipoMovimento();
+		
+		
+		
 		Lancamento entidade =null;
 		Conta conta =null;
 		String descricao = dto.descricao;
-		if(tipo==TipoMovimento.T) {
-
-			conta = contaRepository.findByTipoAndNumero(ContaTipo.D, dto.contaDestino);
-			if(conta==null)
-				throw new BusinessException("Não existe Conta Débito com este número " + dto.contaDestino);
+		if(tipo==TipoMovimento.T || tipo==TipoMovimento.MT) {
+			if(tipo==TipoMovimento.T) {
+				conta = contaRepository.findByTipoAndNumero(ContaTipo.D, dto.contaDestino);
+				if(conta==null)
+					throw new BusinessException("Não existe Conta Débito com este número " + dto.contaDestino);
+				
+			}
+			
 			
 			entidade = new Lancamento();
 			entidade.setData(dto.data);

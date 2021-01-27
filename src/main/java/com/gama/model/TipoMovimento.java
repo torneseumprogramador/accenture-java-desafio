@@ -4,7 +4,8 @@ public enum TipoMovimento {
 	//mudar a forma via sobrescrita
 	R(1,"RECEITA"),
 	D(-1,"DESPESA"),
-	T(-1,"TRANSFERENCIA");
+	T(-1,"TRANSFERENCIA"),
+	MT(-1,"TRANSFERENCIA MESMA TITULARIDADE");
 	private Integer fator;
 	private String descricao;
 	private TipoMovimento(Integer fator,String descricao) {
