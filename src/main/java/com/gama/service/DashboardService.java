@@ -29,10 +29,12 @@ public class DashboardService {
 		Conta contaCredito = contaRepository.findByTipoAndNumero(ContaTipo.CC, login);
 		
 		ContaDto banco = new ContaDto();
+		banco.setId(contaBanco.getId());
 		banco.setSaldo(contaBanco.getSaldo());
 		banco.setLancamentos(lancamentoRepository.listarLancamentos(contaBanco.getId(), inicio, fim));
 		
 		ContaDto credito = new ContaDto();
+		credito.setId(contaCredito.getId());
 		credito.setSaldo(contaCredito.getSaldo());
 		credito.setLancamentos(lancamentoRepository.listarLancamentos(contaCredito.getId(), inicio, fim));
 		
