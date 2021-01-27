@@ -32,6 +32,8 @@ public class StartConfig {
 	private void gerarLancamentosExemplo() {
 		//receitas
 		try {
+			/*
+			
 			String user1= "user1";
 			Conta contaUser1 = contaRepository.findByTipoAndNumero(ContaTipo.CB, user1);
 			
@@ -56,7 +58,7 @@ public class StartConfig {
 			dto.descricao="PAGAMENTO BOLETO";
 			lancamentoService.confirmar(dto);
 			
-			
+			*/
 			
 			
 			//DEPESAS

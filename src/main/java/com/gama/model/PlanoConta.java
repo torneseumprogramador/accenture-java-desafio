@@ -13,6 +13,9 @@ import javax.persistence.Table;
 @Table(name = "tab_plano_conta")
 public class PlanoConta {
 	public static final String TRF_ENTRE_CONTAS = "TRF_ENTRE_CONTAS";
+	public static final String TRF_ENTRE_USUARIOS = "TRF_ENTRE_USUARIOS";
+	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;

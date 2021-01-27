@@ -42,9 +42,17 @@ public class LancamentoService {
 			if(conta.getTipo()==ContaTipo.CC)
 				throw new BusinessException("Conta {CREDITO} NÃO pode transferir para conta {BANCO}");
 			
-			conta = contaRepository.findByTipoAndNumero(ContaTipo.CC, dto.login);
+			conta = obterContaBanco(dto.login);
 			lancamento = criarLancamento(conta.getId(), dto.data, dto.descricao, dto.valor * -1, pc);
 			inserirLancamento(lancamento);
+			
+		}else if(pc.getTipoMovimento() == TipoMovimento.TU) {
+			
+			Conta conta = obterContaBanco(dto.contaDestino);
+			pc = planoContaRepository.transferenciaEntreUsuarios(dto.contaDestino);
+			lancamento = criarLancamento(conta.getId(), dto.data, dto.descricao, dto.valor * -1, pc);
+			inserirLancamento(lancamento);
+			
 		}
 	}
 	private PlanoConta obterPlanoConta(Integer planoConta) {
@@ -60,6 +68,13 @@ public class LancamentoService {
 			throw new BusinessException("Não existe Conta com o ID.:" + conta);
 		
 		return opc.get();
+	}
+	private Conta obterContaBanco(String login) {
+		Conta conta = contaRepository.findByTipoAndNumero(ContaTipo.CB, login);
+		if(conta==null)
+			throw new BusinessException("Não existe Conta Banco com o Login" + login);
+		
+		return conta;
 	}
 	private Lancamento criarLancamento(Integer conta, LocalDate data, String descricao, Double valor, PlanoConta planoConta) {
 		return criarLancamento(conta, data, descricao, valor, planoConta, null);

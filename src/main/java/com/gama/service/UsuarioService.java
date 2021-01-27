@@ -84,12 +84,18 @@ public class UsuarioService {
 		
 		planoContaRepository.save(pc);
 		
-		if(usuario.getLogin().equals("user1")) {
+		//if(usuario.getLogin().equals("user1")) {
 			pc = new PlanoConta();
 			pc.setLogin("master");
 			pc.setDescricao(PlanoConta.TRF_ENTRE_CONTAS);
 			pc.setTipoMovimento(TipoMovimento.TC);
 			planoContaRepository.save(pc);
-		}
+			
+			pc = new PlanoConta();
+			pc.setLogin("master");
+			pc.setDescricao(PlanoConta.TRF_ENTRE_USUARIOS);
+			pc.setTipoMovimento(TipoMovimento.TU);
+			planoContaRepository.save(pc);
+		//}
 	}
 }
