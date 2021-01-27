@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.gama.dto.ContaDto;
 import com.gama.dto.Dashboard;
 import com.gama.model.Conta;
 import com.gama.model.ContaTipo;
@@ -24,15 +25,16 @@ public class DashboardService {
 	
 	public Dashboard atualizarDashboard(String login, LocalDate inicio, LocalDate fim) {
 		Dashboard dash = new Dashboard();
-		Conta cc = contaRepository.findByTipoAndNumero(ContaTipo.CB, login);
-		Conta cd = contaRepository.findByTipoAndNumero(ContaTipo.CC, login);
+		Conta contaBanco = contaRepository.findByTipoAndNumero(ContaTipo.CB, login);
+		Conta contaCredito = contaRepository.findByTipoAndNumero(ContaTipo.CC, login);
 		
-		dash.setContaCredito(cc);
-		dash.setContaDebito(cd);
+		ContaDto banco = new ContaDto();
+		banco.setSaldo(contaBanco.getSaldo());
+		banco.setLancamentos(lancamentoRepository.listarLancamentos(contaBanco.getId(), inicio, fim));
 		
-		dash.setContaCreditoLancamentos(lancamentoRepository.listarLancamentos(cc.getId(), inicio, fim));
-		dash.setContaDebitoLancamentos(lancamentoRepository.listarLancamentos(cd.getId(), inicio, fim));
-		
+		ContaDto credito = new ContaDto();
+		credito.setSaldo(contaCredito.getSaldo());
+		credito.setLancamentos(lancamentoRepository.listarLancamentos(contaBanco.getId(), inicio, fim));
 		
 		return dash;
 	}

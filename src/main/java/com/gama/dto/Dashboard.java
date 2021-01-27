@@ -6,33 +6,20 @@ import com.gama.model.Conta;
 import com.gama.model.Lancamento;
 
 public class Dashboard {
-	private Conta contaDebito;
-	private Conta contaCredito;
-	private List<Lancamento> contaDebitoLancamentos;
-	private List<Lancamento> contaCreditoLancamentos;
-	public Conta getContaDebito() {
-		return contaDebito;
+	private ContaDto contaBanco;
+	private ContaDto contaCredito;
+	public ContaDto getContaBanco() {
+		return contaBanco;
 	}
-	public void setContaDebito(Conta contaDebito) {
-		this.contaDebito = contaDebito;
+	public void setContaBanco(ContaDto contaBanco) {
+		this.contaBanco = contaBanco;
 	}
-	public Conta getContaCredito() {
+	public ContaDto getContaCredito() {
 		return contaCredito;
 	}
-	public void setContaCredito(Conta contaCredito) {
+	public void setContaCredito(ContaDto contaCredito) {
 		this.contaCredito = contaCredito;
 	}
-	public List<Lancamento> getContaDebitoLancamentos() {
-		return contaDebitoLancamentos;
-	}
-	public void setContaDebitoLancamentos(List<Lancamento> contaDebitoLancamentos) {
-		this.contaDebitoLancamentos = contaDebitoLancamentos;
-	}
-	public List<Lancamento> getContaCreditoLancamentos() {
-		return contaCreditoLancamentos;
-	}
-	public void setContaCreditoLancamentos(List<Lancamento> contaCreditoLancamentos) {
-		this.contaCreditoLancamentos = contaCreditoLancamentos;
-	}
+	
 	
 }
