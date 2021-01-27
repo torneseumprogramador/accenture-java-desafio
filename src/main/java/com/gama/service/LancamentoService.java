@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gama.dto.LancamentoDto;
 import com.gama.exception.config.BusinessException;
 import com.gama.model.Conta;
+import com.gama.model.ContaTipo;
 import com.gama.model.Lancamento;
 import com.gama.model.PlanoConta;
 import com.gama.model.TipoMovimento;
@@ -28,15 +29,23 @@ public class LancamentoService {
 	@Autowired
 	private PlanoContaRepository planoContaRepository;
 	
-	
-	
-	
+	@Transactional
 	public void confirmar(LancamentoDto dto) {
+		if(!contaRepository.existsByIdAndNumero(dto.conta, dto.login))
+			throw new BusinessException("Esta Conta não pertence ao Usuario");
 		
 		PlanoConta pc = obterPlanoConta(dto.planoConta);
 		Lancamento lancamento = criarLancamento(dto.conta, dto.data, dto.descricao, dto.valor, pc);
 		inserirLancamento(lancamento);
-		
+		if(pc.getTipoMovimento() == TipoMovimento.TC) {
+			Conta conta = obterConta(dto.conta);
+			if(conta.getTipo()==ContaTipo.CC)
+				throw new BusinessException("Conta {CREDITO} NÃO pode transferir para conta {BANCO}");
+			
+			conta = contaRepository.findByTipoAndNumero(ContaTipo.CC, dto.login);
+			lancamento = criarLancamento(conta.getId(), dto.data, dto.descricao, dto.valor * -1, pc);
+			inserirLancamento(lancamento);
+		}
 	}
 	private PlanoConta obterPlanoConta(Integer planoConta) {
 		Optional<PlanoConta> opc = planoContaRepository.findById(planoConta);
@@ -72,7 +81,7 @@ public class LancamentoService {
 		
 	}
 	
-	@Transactional
+	
 	private void inserirLancamento(Lancamento lancamento) {
 		repository.save(lancamento);
 		Conta conta = obterConta(lancamento.getConta());

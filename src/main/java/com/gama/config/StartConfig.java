@@ -32,17 +32,35 @@ public class StartConfig {
 	private void gerarLancamentosExemplo() {
 		//receitas
 		try {
+			String user1= "user1";
+			Conta contaUser1 = contaRepository.findByTipoAndNumero(ContaTipo.CB, user1);
+			
 			LancamentoDto dto = new LancamentoDto();
-			Conta user1 = contaRepository.findByTipoAndNumero(ContaTipo.CB, "user1");
+			//RECEITAS
 			
-			
-			dto.conta=1;
+			dto.conta=contaUser1.getId();
+			dto.login=user1;
 			dto.data=LocalDate.now();
 			dto.valor=100.0;
 			dto.planoConta=1;
 			dto.descricao="RECEITAS TESTES";
 			lancamentoService.confirmar(dto);
 			
+			
+			dto = new LancamentoDto();
+			dto.conta=contaUser1.getId();
+			dto.login=user1;
+			dto.data=LocalDate.now();
+			dto.valor=50.0;
+			dto.planoConta=3; //id do plano de contas com nome TRF_ENTRE_CONTAS
+			dto.descricao="PAGAMENTO BOLETO";
+			lancamentoService.confirmar(dto);
+			
+			
+			
+			
+			//DEPESAS
+			/*
 			dto = new LancamentoDto();
 			dto.conta=1;
 			dto.data=LocalDate.now();
@@ -50,6 +68,7 @@ public class StartConfig {
 			dto.planoConta=2;
 			dto.descricao="DESPESAS TESTES";
 			lancamentoService.confirmar(dto);
+			*/
 			
 			
 			//TRANSFERENCIA ENTRE CONTAS

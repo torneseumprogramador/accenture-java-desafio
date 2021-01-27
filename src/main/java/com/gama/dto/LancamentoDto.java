@@ -5,6 +5,9 @@ import java.time.LocalDate;
 import io.swagger.annotations.ApiModelProperty;
 
 public class LancamentoDto {
+	@ApiModelProperty(value = "ID da Conta", example = "1")
+	public String login;
+	
 	@ApiModelProperty(value = "Data do Lançamento", example = "2021-01-01")
 	public LocalDate data; 
 	

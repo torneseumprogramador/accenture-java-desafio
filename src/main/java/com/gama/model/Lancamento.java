@@ -38,7 +38,7 @@ public class Lancamento {
 	private PlanoConta planoConta;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false,length = 1)
+	@Column(nullable = false,length = 3)
 	private TipoMovimento tipo;
 
 	public Lancamento() {

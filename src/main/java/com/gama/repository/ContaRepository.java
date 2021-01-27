@@ -7,5 +7,5 @@ import com.gama.model.ContaTipo;
 
 public interface ContaRepository extends JpaRepository<Conta, Integer> {
 	Conta findByTipoAndNumero(ContaTipo tipo, String numero);
-	
+	boolean existsByIdAndNumero(Integer id, String numero);
 }

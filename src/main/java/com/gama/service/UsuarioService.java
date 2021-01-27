@@ -59,13 +59,13 @@ public class UsuarioService {
 		Conta conta = new Conta();
 		conta.setNumero(usuario.getLogin());
 		conta.setSaldo(0.0d);
-		conta.setTipo(ContaTipo.CC);
+		conta.setTipo(ContaTipo.CB);
 		contaRepository.save(conta);
 		
 		conta = new Conta();
 		conta.setNumero(usuario.getLogin());
 		conta.setSaldo(0.0d);
-		conta.setTipo(ContaTipo.CB);
+		conta.setTipo(ContaTipo.CC);
 		contaRepository.save(conta);
 		
 		repository.save(usuario);
