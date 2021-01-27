@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tab_plano_conta")
 public class PlanoConta {
-	public static final String TRF_ENTRE_USUARIOS = "TRF_ENTRE_USUARIOS";
+	public static final String TRF_ENTRE_CONTAS = "TRF_ENTRE_CONTAS";
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;

@@ -106,10 +106,10 @@ public class LoginService {
 		sessao.setUsuario(usuario);
 		
 		sessao.setToken(JWTConstants.PREFIX + getJWTToken(sessao));
-		Conta conta = contaRepository.findByTipoAndNumero(ContaTipo.D, login.getUsuario());
+		Conta conta = contaRepository.findByTipoAndNumero(ContaTipo.CC, login.getUsuario());
 		sessao.setConta(conta);
 		
-		conta = contaRepository.findByTipoAndNumero(ContaTipo.C, login.getUsuario());
+		conta = contaRepository.findByTipoAndNumero(ContaTipo.CB, login.getUsuario());
 		sessao.setContaCredito(conta);
 		
 		//sessao.setPlanosConta(planoContaRepository.findByLogin(login.getUsuario()));

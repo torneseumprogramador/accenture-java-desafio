@@ -1,11 +1,15 @@
 package com.gama.config;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.gama.model.PlanoConta;
-import com.gama.model.TipoMovimento;
-import com.gama.repository.PlanoContaRepository;
+import com.gama.dto.LancamentoDto;
+import com.gama.model.Conta;
+import com.gama.model.ContaTipo;
+import com.gama.repository.ContaRepository;
+import com.gama.service.LancamentoService;
 import com.gama.service.UsuarioService;
 
 @Component
@@ -14,14 +18,48 @@ public class StartConfig {
 	private UsuarioService service;
 	
 	@Autowired
-	private PlanoContaRepository pcRepository;
-	public void start() {
-		service.criarContaPadrao();
-		PlanoConta pc = new PlanoConta();
-		pc.setLogin("master");
-		pc.setDescricao(PlanoConta.TRF_ENTRE_USUARIOS);
-		pc.setTipoMovimento(TipoMovimento.T);
-		pcRepository.save(pc);
-	}
+	private ContaRepository contaRepository;
 	
+	@Autowired
+	private LancamentoService lancamentoService;
+	
+	public void start() {
+		service.criarContaPadrao("user1");
+		service.criarContaPadrao("user2");
+		
+		gerarLancamentosExemplo();
+	}
+	private void gerarLancamentosExemplo() {
+		//receitas
+		try {
+			LancamentoDto dto = new LancamentoDto();
+			Conta user1 = contaRepository.findByTipoAndNumero(ContaTipo.CB, "user1");
+			
+			
+			dto.conta=1;
+			dto.data=LocalDate.now();
+			dto.valor=100.0;
+			dto.planoConta=1;
+			dto.descricao="RECEITAS TESTES";
+			lancamentoService.confirmar(dto);
+			
+			dto = new LancamentoDto();
+			dto.conta=1;
+			dto.data=LocalDate.now();
+			dto.valor=50.0;
+			dto.planoConta=2;
+			dto.descricao="DESPESAS TESTES";
+			lancamentoService.confirmar(dto);
+			
+			
+			//TRANSFERENCIA ENTRE CONTAS
+			
+			//TRANSFERENCIA ENTRE USUARIOS
+			
+			Conta user2 = contaRepository.findByTipoAndNumero(ContaTipo.CB, "user2");
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

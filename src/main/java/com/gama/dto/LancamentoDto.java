@@ -2,12 +2,10 @@ package com.gama.dto;
 
 import java.time.LocalDate;
 
-import com.gama.model.TipoMovimento;
-
 import io.swagger.annotations.ApiModelProperty;
 
 public class LancamentoDto {
-	@ApiModelProperty(value = "Data do Lançamento", example = "2020-01-01")
+	@ApiModelProperty(value = "Data do Lançamento", example = "2021-01-01")
 	public LocalDate data; 
 	
 	@ApiModelProperty(value = "Valor do Lançamento", example = "10.12")
@@ -16,7 +14,7 @@ public class LancamentoDto {
 	@ApiModelProperty(value = "ID da Conta", example = "1")
 	public Integer conta;
 	
-	@ApiModelProperty(value = "Data do Lançamento", example = "cpfDestino")
+	@ApiModelProperty(value = "Conta de destino", example = "andre", allowableValues = "cpfDestino, telefoneDestino, apelidoDestino ")
 	public String contaDestino;
 	
 	@ApiModelProperty(value = "Descrição do Lançamento", example = "PAGAMENTO CONTA LUZ")

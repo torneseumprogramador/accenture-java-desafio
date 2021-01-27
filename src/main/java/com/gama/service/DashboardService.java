@@ -24,8 +24,8 @@ public class DashboardService {
 	
 	public Dashboard atualizarDashboard(String login, LocalDate inicio, LocalDate fim) {
 		Dashboard dash = new Dashboard();
-		Conta cc = contaRepository.findByTipoAndNumero(ContaTipo.C, login);
-		Conta cd = contaRepository.findByTipoAndNumero(ContaTipo.D, login);
+		Conta cc = contaRepository.findByTipoAndNumero(ContaTipo.CB, login);
+		Conta cd = contaRepository.findByTipoAndNumero(ContaTipo.CC, login);
 		
 		dash.setContaCredito(cc);
 		dash.setContaDebito(cd);

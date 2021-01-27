@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.gama.service.UsuarioService;
+import com.gama.config.StartConfig;
 
 @SpringBootApplication
 public class AccentureJavaDesafioApplication {
@@ -16,9 +16,9 @@ public class AccentureJavaDesafioApplication {
 	
 
 	@Bean
-    public CommandLineRunner run( UsuarioService bean) {
+    public CommandLineRunner run( StartConfig bean) {
         return args -> {
-           bean.criarContaPadrao();
+           bean.start();
      
         };
     }

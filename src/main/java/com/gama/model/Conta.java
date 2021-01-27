@@ -28,6 +28,9 @@ public class Conta {
 	@Enumerated(EnumType.STRING)
 	private ContaTipo tipo;
 	
+	public String getDescricao() {
+		return tipo.getDescricao();
+	}
 	public ContaTipo getTipo() {
 		return tipo;
 	}

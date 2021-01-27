@@ -29,18 +29,20 @@ public class UsuarioService {
 	@Autowired
 	private PasswordEncoder encoder;
 	
-	public void criarContaPadrao() {
+	public boolean criarContaPadrao(String login) {
 		 Usuario usuario = new Usuario();
-         usuario.setCpf("00000000000");
-         usuario.setNome("CONTA MASTER");
-         usuario.setLogin("master");
-         usuario.setSenha("master");
+         usuario.setCpf(login);
+         usuario.setNome(login);
+         usuario.setLogin(login);
+         usuario.setSenha(login);
          
          try {
 			criarConta(usuario);
+			return true;
 		} catch (LoginExistenteException e) {
 			System.out.println("CONTA PADRAO JÁ EXISTE - TUDO BEM");
 		}
+        return false;
 	}
 	public void criarConta(Usuario usuario) throws LoginExistenteException{
 		if(repository.existsByLogin(usuario.getLogin()))
@@ -57,13 +59,13 @@ public class UsuarioService {
 		Conta conta = new Conta();
 		conta.setNumero(usuario.getLogin());
 		conta.setSaldo(0.0d);
-		conta.setTipo(ContaTipo.D);
+		conta.setTipo(ContaTipo.CC);
 		contaRepository.save(conta);
 		
 		conta = new Conta();
 		conta.setNumero(usuario.getLogin());
 		conta.setSaldo(0.0d);
-		conta.setTipo(ContaTipo.C);
+		conta.setTipo(ContaTipo.CB);
 		contaRepository.save(conta);
 		
 		repository.save(usuario);
@@ -82,5 +84,12 @@ public class UsuarioService {
 		
 		planoContaRepository.save(pc);
 		
+		if(usuario.getLogin().equals("user1")) {
+			pc = new PlanoConta();
+			pc.setLogin("master");
+			pc.setDescricao(PlanoConta.TRF_ENTRE_CONTAS);
+			pc.setTipoMovimento(TipoMovimento.TC);
+			planoContaRepository.save(pc);
+		}
 	}
 }

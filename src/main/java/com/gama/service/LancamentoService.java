@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gama.dto.LancamentoDto;
 import com.gama.exception.config.BusinessException;
 import com.gama.model.Conta;
-import com.gama.model.ContaTipo;
 import com.gama.model.Lancamento;
 import com.gama.model.PlanoConta;
 import com.gama.model.TipoMovimento;
@@ -65,6 +64,7 @@ public class LancamentoService {
 		lancamento.setData(data);
 		lancamento.setPlanoConta(planoConta);
 		lancamento.setTipo(tipo);
+		lancamento.setDescricao(descricao);
 		
 		lancamento.setValor(valor * tipo.getFator());
 		

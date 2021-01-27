@@ -10,7 +10,7 @@ import com.gama.model.PlanoConta;
 public interface PlanoContaRepository extends JpaRepository<PlanoConta, Integer> {
 	List<PlanoConta> findByLogin(String login);
 	
-	@Query("SELECT pc FROM PlanoConta pc WHERE pc.nome = ' " + PlanoConta.TRF_ENTRE_USUARIOS + "' ")
+	@Query("SELECT pc FROM PlanoConta pc WHERE pc.descricao = '" + PlanoConta.TRF_ENTRE_CONTAS + "'")
 	PlanoConta transferenciaEntreUsuarios();
 	
 }
